@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Chatbot</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#f4f6f9;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.chat-container{
+    width:400px;
+    height:600px;
+    background:white;
+    border-radius:15px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.2);
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+}
+
+.header{
+    background:#0078ff;
+    color:white;
+    padding:15px;
+    text-align:center;
+    font-size:22px;
+    font-weight:bold;
+}
+
+.chat-box{
+    flex:1;
+    padding:15px;
+    overflow-y:auto;
+    background:#eef2f7;
+}
+
+.message{
+    margin:10px 0;
+    padding:10px 15px;
+    border-radius:12px;
+    max-width:80%;
+    word-wrap:break-word;
+}
+
+.user{
+    background:#0078ff;
+    color:white;
+    margin-left:auto;
+}
+
+.bot{
+    background:white;
+    border:1px solid #ddd;
+}
+
+.input-area{
+    display:flex;
+    padding:10px;
+    background:white;
+    border-top:1px solid #ddd;
+}
+
+input{
+    flex:1;
+    padding:10px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    outline:none;
+}
+
+button{
+    margin-left:10px;
+    padding:10px 20px;
+    border:none;
+    background:#0078ff;
+    color:white;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#005fd1;
+}
+</style>
+</head>
+<body>
+
+<div class="chat-container">
+
+    <div class="header">
+        AI Chatbot
+    </div>
+
+    <div class="chat-box" id="chatBox">
+        <div class="message bot">
+            Hello! I am your AI assistant. Ask me anything.
+        </div>
+    </div>
+
+    <div class="input-area">
+        <input type="text" id="userInput" placeholder="Type a message..." onkeypress="handleKey(event)">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
+</div>
+
+<script>
+
+function addMessage(text, sender){
+    const chatBox = document.getElementById("chatBox");
+
+    const msg = document.createElement("div");
+    msg.classList.add("message", sender);
+    msg.innerText = text;
+
+    chatBox.appendChild(msg);
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function getBotResponse(message){
+
+    message = message.toLowerCase();
+
+    if(message.includes("hello") || message.includes("hi"))
+        return "Hello! How can I help you today?";
+
+    if(message.includes("your name"))
+        return "I am an AI Chatbot created for cloud deployment practicals.";
+
+    if(message.includes("how are you"))
+        return "I am functioning perfectly and ready to assist you.";
+
+    if(message.includes("weather"))
+        return "I cannot access live weather data, but I recommend checking a weather service.";
+
+    if(message.includes("ai"))
+        return "Artificial Intelligence enables machines to perform tasks that typically require human intelligence.";
+
+    if(message.includes("machine learning"))
+        return "Machine Learning is a branch of AI that learns patterns from data.";
+
+    if(message.includes("college"))
+        return "Education helps develop knowledge, skills, and problem-solving abilities.";
+
+    if(message.includes("python"))
+        return "Python is a popular programming language used in AI, web development, and data science.";
+
+    if(message.includes("java"))
+        return "Java is an object-oriented programming language widely used in enterprise applications.";
+
+    if(message.includes("cloud"))
+        return "Cloud computing provides computing resources over the internet.";
+
+    if(message.includes("vercel"))
+        return "Vercel is a cloud platform used to deploy modern web applications.";
+
+    if(message.includes("thank"))
+        return "You're welcome!";
+
+    return "I understand your message. This demo chatbot is responding using predefined AI-like logic.";
+}
+
+function sendMessage(){
+
+    const input = document.getElementById("userInput");
+    const text = input.value.trim();
+
+    if(text === "") return;
+
+    addMessage(text,"user");
+
+    setTimeout(()=>{
+        addMessage(getBotResponse(text),"bot");
+    },500);
+
+    input.value="";
+}
+
+function handleKey(event){
+    if(event.key==="Enter"){
+        sendMessage();
+    }
+}
+
+</script>
+
+</body>
+</html>
